@@ -57,6 +57,16 @@ export class CreateArticlePage {
     });
   }
 
+  async createArticleWithInfo(article) {
+    await this.fillTitleField(article.title);
+    await this.fillDescriptionField(article.description);
+    await this.fillTextField(article.text);
+    if(article.tags && article.tags.length !== 0) {
+      await this.addArticleTags(article.tags);
+    }
+    await this.clickPublishArticleButton();
+  }
+
   async clickUpdateArticleButton() {
     await test.step(`Click the 'Update Article' button`, async () => {
       await this.updateArticleButton.click();
