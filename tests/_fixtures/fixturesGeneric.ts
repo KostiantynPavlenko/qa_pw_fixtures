@@ -6,9 +6,6 @@ import { generateNewArticleData } from '../../src/common/testData/generateNewArt
 export const test = base.extend<
   {
     user: {},
-    articleWithoutTags: {},
-    articleWithOneTag: {},
-    articleWithTwoTags: {},
     infoTestLog: string,
   },
   {
@@ -19,21 +16,6 @@ export const test = base.extend<
     const user = generateNewUserData(logger);
 
     await use(user);
-  },
-  articleWithoutTags: async({ logger }, use) => {
-    const article = generateNewArticleData(logger);
-
-    await use(article);
-  },
-  articleWithOneTag: async({ logger }, use) => {
-    const article = generateNewArticleData(logger, 1);
-
-    await use(article);
-  },
-  articleWithTwoTags: async({ logger }, use) => {
-    const article = generateNewArticleData(logger, 2);
-
-    await use(article);
   },
   logger: [
     async ({}, use) => {

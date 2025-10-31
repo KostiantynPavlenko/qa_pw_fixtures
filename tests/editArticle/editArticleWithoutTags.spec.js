@@ -7,10 +7,10 @@ import { generateNewUserData } from "../../src/common/testData/generateNewUserDa
 import { generateNewArticleData } from "../../src/common/testData/generateNewArticleData";
 import { createNewArticle } from "../../src/ui/actions/article/createNewArticle";
 
-test.beforeEach(async ({ page, user, articleWithoutTags, homePage }) => {
+test.beforeEach(async ({ page, user, articleWithoutTags, homePage, createArticlePage, viewArticlePage }) => {
   await signUpUser(page, user);
   await homePage.clickNewArticleLink();
-  await createNewArticle(page, articleWithoutTags);
+  await createNewArticle(createArticlePage, viewArticlePage, articleWithoutTags);
 });
 test('Add the tag for the existing article without tags', async ({createArticlePage, viewArticlePage, articleWithTwoTags }) => {
   await viewArticlePage.clickEditArticle();
