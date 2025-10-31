@@ -7,7 +7,6 @@ test.beforeEach(async ({ page, user, homePage, createArticlePage, viewArticlePag
   await homePage.clickNewArticleLink();
   await createArticlePage.createArticleWithInfo(articleWithTwoTags);
   await viewArticlePage.assertArticleTitleIsVisible(articleWithTwoTags.title);
-  console.log(articleWithTwoTags.title);
 });
 
 test('Edit the article title for the existing article', async ({ createArticlePage, viewArticlePage, articleWithOneTag }) => {
@@ -42,7 +41,6 @@ test('Edit the article text for the existing article', async ({ createArticlePag
 });
 
 test('Add the tag for the existing article with tags', async ({ createArticlePage, viewArticlePage, articleWithTwoTags, articleWithOneTag }) => {
-  console.log(articleWithTwoTags.title + 'from test');
   
   await viewArticlePage.clickEditArticle();
   
@@ -55,7 +53,6 @@ test('Add the tag for the existing article with tags', async ({ createArticlePag
 });
 
 test('Remove an article tag for the existing article with tag', async ({ createArticlePage, viewArticlePage, articleWithTwoTags }) => {
-  console.log(articleWithTwoTags.title + 'from test 2');
   await viewArticlePage.clickEditArticle();
 
   await createArticlePage.removeFirstTag();
