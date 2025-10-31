@@ -2,14 +2,15 @@ import { test } from "../_fixtures/fixtures";
 import { signUpUser } from "../../src/ui/actions/auth/signUpUser";
 import { BODY_TEXT_CANNOT_BE_EMPTY, DESCRIPTION_CANNOT_BE_EMPTY, TITLE_CANNOT_BE_EMPTY } from "../../src/ui/constants/articleErrorMessages";
 
-test.beforeEach(async ({ page, user, homePage }) => {
+test.beforeEach(async ({ page, user, homePage, createArticlePage, viewArticlePage, articleWithTwoTags }) => {
   await signUpUser(page, user);
   await homePage.clickNewArticleLink();
-});
-
-test('Edit the article title for the existing article', async ({ createArticlePage, viewArticlePage, articleWithTwoTags, articleWithOneTag }) => {
   await createArticlePage.createArticleWithInfo(articleWithTwoTags);
   await viewArticlePage.assertArticleTitleIsVisible(articleWithTwoTags.title);
+  console.log(articleWithTwoTags.title);
+});
+
+test('Edit the article title for the existing article', async ({ createArticlePage, viewArticlePage, articleWithOneTag }) => {
   await viewArticlePage.clickEditArticle();
   
   await createArticlePage.fillTitleField(articleWithOneTag.title);
@@ -20,9 +21,7 @@ test('Edit the article title for the existing article', async ({ createArticlePa
   await createArticlePage.assertTitleInputContainsText(articleWithOneTag.title);
 });
 
-test('Edit the article description for the existing article', async ({ createArticlePage, viewArticlePage, articleWithTwoTags, articleWithOneTag }) => {
-  await createArticlePage.createArticleWithInfo(articleWithTwoTags);
-  await viewArticlePage.assertArticleTitleIsVisible(articleWithTwoTags.title);
+test('Edit the article description for the existing article', async ({ createArticlePage, viewArticlePage, articleWithOneTag }) => {
   await viewArticlePage.clickEditArticle();
 
   await createArticlePage.fillDescriptionField(articleWithOneTag.description);
@@ -32,9 +31,7 @@ test('Edit the article description for the existing article', async ({ createArt
   await createArticlePage.assertDescriptionInputContainsText(articleWithOneTag.description);
 });
 
-test('Edit the article text for the existing article', async ({ createArticlePage, viewArticlePage, articleWithTwoTags, articleWithOneTag }) => {
-  await createArticlePage.createArticleWithInfo(articleWithTwoTags);
-  await viewArticlePage.assertArticleTitleIsVisible(articleWithTwoTags.title);
+test('Edit the article text for the existing article', async ({ createArticlePage, viewArticlePage, articleWithOneTag }) => {
   await viewArticlePage.clickEditArticle();
   
   await createArticlePage.fillTextField(articleWithOneTag.text);
@@ -45,8 +42,8 @@ test('Edit the article text for the existing article', async ({ createArticlePag
 });
 
 test('Add the tag for the existing article with tags', async ({ createArticlePage, viewArticlePage, articleWithTwoTags, articleWithOneTag }) => {
-  await createArticlePage.createArticleWithInfo(articleWithTwoTags);
-  await viewArticlePage.assertArticleTitleIsVisible(articleWithTwoTags.title);
+  console.log(articleWithTwoTags.title + 'from test');
+  
   await viewArticlePage.clickEditArticle();
   
   await createArticlePage.addArticleTags(articleWithOneTag.tags);
@@ -58,8 +55,7 @@ test('Add the tag for the existing article with tags', async ({ createArticlePag
 });
 
 test('Remove an article tag for the existing article with tag', async ({ createArticlePage, viewArticlePage, articleWithTwoTags }) => {
-  await createArticlePage.createArticleWithInfo(articleWithTwoTags);
-  await viewArticlePage.assertArticleTitleIsVisible(articleWithTwoTags.title);
+  console.log(articleWithTwoTags.title + 'from test 2');
   await viewArticlePage.clickEditArticle();
 
   await createArticlePage.removeFirstTag();
@@ -69,9 +65,7 @@ test('Remove an article tag for the existing article with tag', async ({ createA
   await createArticlePage.assertTagsListCount(articleWithTwoTags.tags.length - 1);
 });
 
-test('Remove an article title for the existing article', async ({ createArticlePage, viewArticlePage, articleWithTwoTags }) => {
-  await createArticlePage.createArticleWithInfo(articleWithTwoTags);
-  await viewArticlePage.assertArticleTitleIsVisible(articleWithTwoTags.title);
+test('Remove an article title for the existing article', async ({ createArticlePage, viewArticlePage }) => {
   await viewArticlePage.clickEditArticle();
   
   await createArticlePage.fillTitleField('');
@@ -80,9 +74,7 @@ test('Remove an article title for the existing article', async ({ createArticleP
   await createArticlePage.assertErrorMessageContainsText(TITLE_CANNOT_BE_EMPTY);
 });
 
-test('Remove an article description for the existing article', async ({ createArticlePage, viewArticlePage, articleWithTwoTags }) => {
-  await createArticlePage.createArticleWithInfo(articleWithTwoTags);
-  await viewArticlePage.assertArticleTitleIsVisible(articleWithTwoTags.title);
+test('Remove an article description for the existing article', async ({ createArticlePage, viewArticlePage }) => {
   await viewArticlePage.clickEditArticle();
   
   await createArticlePage.fillDescriptionField('');
@@ -90,9 +82,7 @@ test('Remove an article description for the existing article', async ({ createAr
   await createArticlePage.assertErrorMessageContainsText(DESCRIPTION_CANNOT_BE_EMPTY);
 });
 
-test('Remove the article text for the existing article', async ({ createArticlePage, viewArticlePage, articleWithTwoTags }) => {
-  await createArticlePage.createArticleWithInfo(articleWithTwoTags);
-  await viewArticlePage.assertArticleTitleIsVisible(articleWithTwoTags.title);
+test('Remove the article text for the existing article', async ({ createArticlePage, viewArticlePage }) => {
   await viewArticlePage.clickEditArticle();
   
   await createArticlePage.fillTextField('');
