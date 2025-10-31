@@ -1,20 +1,39 @@
 import { test as base } from '@playwright/test';
 import { Logger } from '../../src/common/logger/Logger';
 import { generateNewUserData } from '../../src/common/testData/generateNewUserData';
+import { generateNewArticleData } from '../../src/common/testData/generateNewArticleData';
 
 export const test = base.extend<
   {
-    user;
-    infoTestLog;
+    user: {},
+    articleWithoutTags: {},
+    articleWithOneTag: {},
+    articleWithTwoTags: {},
+    infoTestLog: string,
   },
   {
-    logger;
+    logger: Logger;
   }
 >({
   user: async ({ logger }, use) => {
     const user = generateNewUserData(logger);
 
     await use(user);
+  },
+  articleWithoutTags: async({ logger }, use) => {
+    const article = generateNewArticleData(logger);
+
+    await use(article);
+  },
+  articleWithOneTag: async({ logger }, use) => {
+    const article = generateNewArticleData(logger, 1);
+
+    await use(article);
+  },
+  articleWithTwoTags: async({ logger }, use) => {
+    const article = generateNewArticleData(logger, 2);
+
+    await use(article);
   },
   logger: [
     async ({}, use) => {
